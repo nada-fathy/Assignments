@@ -1,0 +1,278 @@
+import java.awt.Point;
+
+public interface IPlayersFinder {
+	Point[] findPlayers(String[] photo, int team, int threshold);
+
+}
+
+
+import java.awt.Point;
+
+public class image implements IPlayersFinder{
+	int size(int[][] A,int nR,int nC) {
+		int s=0;
+		for (int i=0;i<nR*nC*10;i++) {
+			
+			if (A[i][0]!=-1)
+				s++;
+			
+		
+		
+	}
+		return s;
+	}
+	/////
+	int checkR(int i, int j,int team, char[][]a,int nR, int nC) {
+		int r=0;
+		if (j+1<nC) {
+			if (Character.getNumericValue(a[i][j+1])==team)
+			r++;}
+		if (j-1>=0) {
+		if (Character.getNumericValue(a[i][j-1])==team)
+			r++;}
+		if (i-1>=0) {
+		if (Character.getNumericValue(a[i-1][j])==team)
+			r++;}
+		if (i+1<nR) {
+		if (Character.getNumericValue(a[i+1][j])==team)
+			r++;}
+		if (r>0) return 1;
+		else return 0;
+	}
+	/////
+	int checkRR(int i,int j,int z,int q,char[][] a) {
+		int r=0;
+		if ( (i-z==1 ||z-i==1)&&j==q     )
+			r++;
+		if ( (j-q==1 ||q-j==1)&&i==z     )
+			r++;
+		if (r>0) return 1;
+		else return 0;
+		
+			
+	}
+	/////
+	int checkT(int x,int y,int [][]current ,int nR,int nC) {
+		int check=0;
+		for (int i=0;i<nR*nC*10;i++) {
+			 
+				if (current[i][0]==x&&current[i][1]==y)
+					check=1;
+			
+		
+		}
+		return  check;
+		
+	}
+	///
+	int checkE(char[][]a,int nR,int nC,int team) {
+		int c=0;
+		for (int i=0;i<nR;i++) {
+			for (int j=0;j<nC;j++) {
+				if (Character.getNumericValue(a[i][j])==team    )
+					c++;
+					
+			}
+		}
+		if (c==1)
+			return 1;
+		else 
+			return 0;
+	}
+	
+	
+	public Point[] findPlayers(String[] photo, int team, int threshold) {
+		int retS=0;
+		Point[] ret = new Point[1000];
+		
+		int i,j,t;
+		int nR=photo.length;
+		int nC=photo[0].length();
+		char [][]a=new char[nR][nC];
+		int[][] current=new int[nR*nC*10][2];
+		for (i=0;i<nR*nC*10;i++) 
+			for (j=0;j<2;j++)
+				current[i][j]=-1;
+				
+		
+		for ( i=0;i<nR;i++)
+			a[i]=photo[i].toCharArray();
+		int ss=0;
+		int xx=0;
+		for (i=0;i<nR;i++)
+			for (j=0;j<nC;j++)
+				if (Character.getNumericValue(a[i][j])==team)
+					xx++;
+		if (xx==0) return null;
+		while (true) {
+			 ss=0;
+			
+			for(i=0;i<nR;i++) {
+				for (j=0;j<nC;j++) {
+					if (Character.getNumericValue(a[i][j])==team) {
+						if (size(current,nR,nC)==0) {
+							if (checkR(i,j,team,a,nR,nC)==1||checkE(a,nR,nC,team)==1) {
+								current[ss][0]=i;
+								current[ss][1]=j;
+								//System.out.println("i=="+i +"j=="+j+"ss"+ss);
+								ss++;
+										
+							}
+						}
+	/*current not empty	*/	else {
+								int s=size(current,nR,nC);
+								int cc=0;
+								for (t=0;t<s;t++) {
+								 cc+=checkRR(i,j,current[t][0],current[t][1],a);
+											
+							}
+								if (cc>=1 ) {
+									current[ss][0]=i;
+									current[ss][1]=j;
+									//System.out.println("i=="+i +"j=="+j+"ss=="+ss);
+									ss++;
+								}
+								
+								
+							
+						}
+					}
+						
+					
+				}
+				for (int h=nC-1;h>=0;h--){
+					if (Character.getNumericValue(a[i][h])==team) {
+						if (size(current,nR,nC)==0) {
+							if (checkR(i,h,team,a,nR,nC)==1  ) {
+								current[ss][0]=i;
+								current[ss][1]=h;
+								//System.out.println("i=="+i +"h=="+h+"ss"+ss);
+								ss++;
+										
+							}
+						}
+	/*current not empty	*/	else {
+								int s=size(current,nR,nC);
+								int cc=0;
+								for (t=0;t<s;t++) {
+								 cc+=checkRR(i,h,current[t][0],current[t][1],a);
+											
+							}
+								if (cc>=1  ) {
+									current[ss][0]=i;
+									current[ss][1]=h;
+									//System.out.println("i=="+i +"h=="+h+"ss=="+ss);
+									ss++;
+								}
+								
+								
+							
+						}
+					}
+					
+				}
+				
+				
+			}
+			
+		////
+			if (size(current,nR,nC)==0) break;
+			else { //-1 repeated 
+				int rrr=ss;
+				 int minR=current[0][0];
+				int minC=current[0][1];
+				int maxR=current[0][0];
+				int maxC=current[0][1];
+				for (i=0;i<size(current,nR,nC);i++) {
+					if (current[i][0]<minR) minR=current[i][0];
+					if (current[i][1]<minC) minC=current[i][1];
+					if (current[i][0]>maxR) maxR=current[i][0];
+					if (current[i][1]>maxC) maxC=current[i][1];
+					
+				}
+				for (i=0;i<rrr;i++){
+					for (j=0;j<i;j++) {
+						if ((current[i][0]==current[j][0])&& (current[i][1]==current[j][1])) {
+							current[i][0]=-1; current[i][1]=-1; ss=ss-1;
+						}
+						
+							
+					}
+						
+					
+					
+				}
+				
+				if (size(current,nR,nC)*4>=threshold) {
+				//System.out.println("minR=="+minR+"minC"+minC+"maxR=="+maxR+"maxC"+maxC);
+				//System.out.println("size=="+size(current,nR,nC));
+				int x=minC+maxC+1;
+				int y=minR+maxR+1;
+				
+				
+				ret[retS++]=new Point(x,y);
+				//System.out.println(ret[retS-1]);
+				//cancel their places 
+				for (i=0;i<nR*nC*10;i++) {
+					if (current[i][0]!=-1&&current[i][1]!=-1) {
+					int tt=current[i][0]; int rr=current[i][1];
+					a[tt][rr]='n';
+					}
+					
+				}
+				
+				
+			}
+				
+			// to make current empty 
+			
+			}
+			for (i=0;i<nR*nC*10;i++) {
+				if (current[i][0]!=-1&&current[i][1]!=-1) {
+					int tt=current[i][0]; int rr=current[i][1];
+					a[tt][rr]='n'; }
+				
+			}
+			for (i=0;i<nR*nC*10;i++) 
+				for (j=0;j<2;j++)
+					current[i][j]=-1;
+			
+			int s=0;
+			for (i=0;i<2;i++)
+				 s++;
+			
+			
+			
+			
+		}
+		//to make them in order 
+		
+		for (i=0;i<retS;i++) {
+			for (j=0;j<retS-1-i;j++) {
+				if (ret[j].x>ret[j+1].x) {
+					int  temp1 =ret[j].x; int temp2=ret[j].y;
+					ret[j].x=ret[j+1].x; ret[j].y=ret[j+1].y;
+					ret[j+1].x=temp1;   ret[j+1].y=temp2;
+					
+					
+				}
+				if (ret[j].x==ret[j+1].x) {
+					if (ret[j].y>ret[j+1].y) {
+						int  temp1 =ret[j].x; int temp2=ret[j].y;
+						ret[j].x=ret[j+1].x; ret[j].y=ret[j+1].y;
+						ret[j+1].x=temp1;   ret[j+1].y=temp2;
+						
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		for (i=0;i<retS;i++)
+			System.out.println(ret[i]);
+		return ret;		
+		}
+
+}
