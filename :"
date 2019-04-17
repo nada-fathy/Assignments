@@ -285,3 +285,21 @@ public class doubleList implements ILinkedList {
 
 }
 
+/////////////////////////
+////////////////////
+System.out.println("Insert the variable name: A, B or C");	
+		 Scanner scan = new Scanner(System.in); 
+		 char value = scan.next().charAt(0);
+		 System.out.println("Insert the polynomial terms in the form:\n(coeff1, exponent1), (coeff2, exponent2), ..");
+		    String s = scan.next();
+		    int c=0; int tS=0; int tSS=0;
+		    char[] a=s.toCharArray();
+		    
+		    int[][] terms=new int[a.length][2];
+		    for (int i=0;i<a.length;i++) {
+		    	if (a[i]!='('&&a[i]!=')'&&a[i]!=',') {
+		    		if (c%2==0) terms[tS++][0]=Character.getNumericValue(a[i]);
+		    		else    terms[tSS++][1]=Character.getNumericValue(a[i]);
+		    		c++;
+		    	}
+
