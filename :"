@@ -267,5 +267,386 @@ public class way {
 		  }
 		  
 }
+
+
+
+
+
+
+
+
+
+
+////////
+///////
+ //multiply two polynomials
+ int[][] multiply(char poly1, char poly2){
+	  int limit=0;
+	  int count1=0;
+	  int count2=0;
+	  int temb;
+	  int temp1;
+	  int temp2;
+	  int arr1[][]=new int[100000][2];
+	  if(poly1=='A' &&poly2=='B'){
+		  LinkedPolynomial.Node current1=x.head;
+		  LinkedPolynomial.Node current2=y.head;
+		  while(current1.coef!=0) {
+			  count1++;
+			  current1=current1.next;
+		  }
+		  current1=x.head;
+		  while(current2.coef!=0) {
+			  count2++;
+			  current2=current2.next;
+		  }
+		  current2=y.head;
+		  for(int i=0;i<count1;i++) {
+			  for(int j=0;j<count2;j++) {
+				  arr1[limit][0]=(current1.coef)*(current2.coef);
+				  arr1[limit][0]=(current1.exp)+(current2.exp);
+				  limit++;
+				  current2=current2.next;
+			  }
+			  current2=y.head;
+			  current1=current1.next;
+		  }
+		  
+		  //sum
+		  for(int i=0;i<limit;i++) {
+			  temb=arr1[i][1];
+			  for(int j=i+1;j<limit;j++) {
+				  if(temb==arr1[j][1]) {
+					  arr1[i][0]+=arr1[j][0];
+					  arr1[j][0]=0;
+					  arr1[j][1]=0;
+				  }
+			  }
+		  }
+		  
+		  //sorting
+		  for(int i=0;i<limit-1;i++) {
+				temb=arr1[i][1];
+				temp2=i;
+				for(int j=i;j<limit;j++) {
+					if(arr1[j][1]>temb) {
+						temb=arr1[j][1];
+						temp2=j;
+					}
+				}
+				temp1=arr1[i][1];
+				arr1[i][1]=temb;
+				arr1[temp2][1]=temp1;
+				
+				temp1=arr1[i][0];
+				arr1[i][0]=arr1[temp2][0];
+				arr1[temp2][0]=temp1;
+				
+			}
+		  
+	  }
+	  /////
+	  if(poly1=='B' &&poly2=='A'){
+		  LinkedPolynomial.Node current1=y.head;
+		  LinkedPolynomial.Node current2=x.head;
+		  while(current1.coef!=0) {
+			  count1++;
+			  current1=current1.next;
+		  }
+		  current1=y.head;
+		  while(current2.coef!=0) {
+			  count2++;
+			  current2=current2.next;
+		  }
+		  current2=x.head;
+		  for(int i=0;i<count1;i++) {
+			  for(int j=0;j<count2;j++) {
+				  arr1[limit][0]=(current1.coef)*(current2.coef);
+				  arr1[limit][0]=(current1.exp)+(current2.exp);
+				  limit++;
+				  current2=current2.next;
+			  }
+			  current2=x.head;
+			  current1=current1.next;
+		  }
+		  
+		  //sum
+		  for(int i=0;i<limit;i++) {
+			  temb=arr1[i][1];
+			  for(int j=i+1;j<limit;j++) {
+				  if(temb==arr1[j][1]) {
+					  arr1[i][0]+=arr1[j][0];
+					  arr1[j][0]=0;
+					  arr1[j][1]=0;
+				  }
+			  }
+		  }
+		  
+		  //sorting
+		  for(int i=0;i<limit-1;i++) {
+				temb=arr1[i][1];
+				temp2=i;
+				for(int j=i;j<limit;j++) {
+					if(arr1[j][1]>temb) {
+						temb=arr1[j][1];
+						temp2=j;
+					}
+				}
+				temp1=arr1[i][1];
+				arr1[i][1]=temb;
+				arr1[temp2][1]=temp1;
+				
+				temp1=arr1[i][0];
+				arr1[i][0]=arr1[temp2][0];
+				arr1[temp2][0]=temp1;
+				
+			}
+		  
+	  }
+	  /////
+	  
+	  if(poly1=='A' &&poly2=='C'){
+		  LinkedPolynomial.Node current1=x.head;
+		  LinkedPolynomial.Node current2=z.head;
+		  while(current1.coef!=0) {
+			  count1++;
+			  current1=current1.next;
+		  }
+		  current1=x.head;
+		  while(current2.coef!=0) {
+			  count2++;
+			  current2=current2.next;
+		  }
+		  current2=z.head;
+		  for(int i=0;i<count1;i++) {
+			  for(int j=0;j<count2;j++) {
+				  arr1[limit][0]=(current1.coef)*(current2.coef);
+				  arr1[limit][0]=(current1.exp)+(current2.exp);
+				  limit++;
+				  current2=current2.next;
+			  }
+			  current2=z.head;
+			  current1=current1.next;
+		  }
+		  
+		  //sum
+		  for(int i=0;i<limit;i++) {
+			  temb=arr1[i][1];
+			  for(int j=i+1;j<limit;j++) {
+				  if(temb==arr1[j][1]) {
+					  arr1[i][0]+=arr1[j][0];
+					  arr1[j][0]=0;
+					  arr1[j][1]=0;
+				  }
+			  }
+		  }
+		  
+		  //sorting
+		  for(int i=0;i<limit-1;i++) {
+				temb=arr1[i][1];
+				temp2=i;
+				for(int j=i;j<limit;j++) {
+					if(arr1[j][1]>temb) {
+						temb=arr1[j][1];
+						temp2=j;
+					}
+				}
+				temp1=arr1[i][1];
+				arr1[i][1]=temb;
+				arr1[temp2][1]=temp1;
+				
+				temp1=arr1[i][0];
+				arr1[i][0]=arr1[temp2][0];
+				arr1[temp2][0]=temp1;
+				
+			}
+		  
+	  }
+	  ////////
+	  
+	  
+	  if(poly1=='C' &&poly2=='A'){
+		  LinkedPolynomial.Node current1=z.head;
+		  LinkedPolynomial.Node current2=x.head;
+		  while(current1.coef!=0) {
+			  count1++;
+			  current1=current1.next;
+		  }
+		  current1=z.head;
+		  while(current2.coef!=0) {
+			  count2++;
+			  current2=current2.next;
+		  }
+		  current2=x.head;
+		  for(int i=0;i<count1;i++) {
+			  for(int j=0;j<count2;j++) {
+				  arr1[limit][0]=(current1.coef)*(current2.coef);
+				  arr1[limit][0]=(current1.exp)+(current2.exp);
+				  limit++;
+				  current2=current2.next;
+			  }
+			  current2=x.head;
+			  current1=current1.next;
+		  }
+		  
+		  //sum
+		  for(int i=0;i<limit;i++) {
+			  temb=arr1[i][1];
+			  for(int j=i+1;j<limit;j++) {
+				  if(temb==arr1[j][1]) {
+					  arr1[i][0]+=arr1[j][0];
+					  arr1[j][0]=0;
+					  arr1[j][1]=0;
+				  }
+			  }
+		  }
+		  
+		  //sorting
+		  for(int i=0;i<limit-1;i++) {
+				temb=arr1[i][1];
+				temp2=i;
+				for(int j=i;j<limit;j++) {
+					if(arr1[j][1]>temb) {
+						temb=arr1[j][1];
+						temp2=j;
+					}
+				}
+				temp1=arr1[i][1];
+				arr1[i][1]=temb;
+				arr1[temp2][1]=temp1;
+				
+				temp1=arr1[i][0];
+				arr1[i][0]=arr1[temp2][0];
+				arr1[temp2][0]=temp1;
+				
+			}
+		  
+	  }
+	  //////////
+	  
+	  if(poly1=='C' &&poly2=='B'){
+		  LinkedPolynomial.Node current1=z.head;
+		  LinkedPolynomial.Node current2=y.head;
+		  while(current1.coef!=0) {
+			  count1++;
+			  current1=current1.next;
+		  }
+		  current1=z.head;
+		  while(current2.coef!=0) {
+			  count2++;
+			  current2=current2.next;
+		  }
+		  current2=y.head;
+		  for(int i=0;i<count1;i++) {
+			  for(int j=0;j<count2;j++) {
+				  arr1[limit][0]=(current1.coef)*(current2.coef);
+				  arr1[limit][0]=(current1.exp)+(current2.exp);
+				  limit++;
+				  current2=current2.next;
+			  }
+			  current2=y.head;
+			  current1=current1.next;
+		  }
+		  
+		  //sum
+		  for(int i=0;i<limit;i++) {
+			  temb=arr1[i][1];
+			  for(int j=i+1;j<limit;j++) {
+				  if(temb==arr1[j][1]) {
+					  arr1[i][0]+=arr1[j][0];
+					  arr1[j][0]=0;
+					  arr1[j][1]=0;
+				  }
+			  }
+		  }
+		  
+		  //sorting
+		  for(int i=0;i<limit-1;i++) {
+				temb=arr1[i][1];
+				temp2=i;
+				for(int j=i;j<limit;j++) {
+					if(arr1[j][1]>temb) {
+						temb=arr1[j][1];
+						temp2=j;
+					}
+				}
+				temp1=arr1[i][1];
+				arr1[i][1]=temb;
+				arr1[temp2][1]=temp1;
+				
+				temp1=arr1[i][0];
+				arr1[i][0]=arr1[temp2][0];
+				arr1[temp2][0]=temp1;
+				
+			}
+		  
+	  }
+	  ///////
+	  
+	  if(poly1=='B' &&poly2=='C'){
+		  LinkedPolynomial.Node current1=y.head;
+		  LinkedPolynomial.Node current2=z.head;
+		  while(current1.coef!=0) {
+			  count1++;
+			  current1=current1.next;
+		  }
+		  current1=y.head;
+		  while(current2.coef!=0) {
+			  count2++;
+			  current2=current2.next;
+		  }
+		  current2=z.head;
+		  for(int i=0;i<count1;i++) {
+			  for(int j=0;j<count2;j++) {
+				  arr1[limit][0]=(current1.coef)*(current2.coef);
+				  arr1[limit][0]=(current1.exp)+(current2.exp);
+				  limit++;
+				  current2=current2.next;
+			  }
+			  current2=z.head;
+			  current1=current1.next;
+		  }
+		  
+		  //sum
+		  for(int i=0;i<limit;i++) {
+			  temb=arr1[i][1];
+			  for(int j=i+1;j<limit;j++) {
+				  if(temb==arr1[j][1]) {
+					  arr1[i][0]+=arr1[j][0];
+					  arr1[j][0]=0;
+					  arr1[j][1]=0;
+				  }
+			  }
+		  }
+		  
+		  //sorting
+		  for(int i=0;i<limit-1;i++) {
+				temb=arr1[i][1];
+				temp2=i;
+				for(int j=i;j<limit;j++) {
+					if(arr1[j][1]>temb) {
+						temb=arr1[j][1];
+						temp2=j;
+					}
+				}
+				temp1=arr1[i][1];
+				arr1[i][1]=temb;
+				arr1[temp2][1]=temp1;
+				
+				temp1=arr1[i][0];
+				arr1[i][0]=arr1[temp2][0];
+				arr1[temp2][0]=temp1;
+				
+			}
+		  
+	  }
+	 
+	  return arr1;
+	  
+ }
+
+
+
+
 	
 
