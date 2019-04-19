@@ -1,294 +1,5 @@
-public interface ILinkedList {
-	public void add(int index, int element);
-	
-	public void add(int element);
 
-	public int get(int index);
-	
-	public void set(int index, int element);
-	
-	public void clear();
-	
-	public boolean isEmpty();
-	
-	public void remove(int index);
-	
-	public int size();
-	
-	public ILinkedList sublist(int fromIndex, int toIndex);
-	
-	public boolean contains(int o);
-
-
-}
-///////////////////////
-//////////////
-/////////////
-
-
-public class sigleList implements ILinkedList {
-
- 
-	Node head;
-	    static class Node { 
-	  
-	        int data; 
-	        Node next; 
-	  
-	        // Constructor 
-	        Node(int d) 
-	        { 
-	            data = d; 
-	            next = null; 
-	        } 
-	    }
-	
-	
-	public void add(int index, int element){
-		Node n=new Node(element);
-		if (head==null)
-			head=n;
-		else {
-		
-		Node current=head;
-		for (int i=0 ; i<= index-2;i++)
-			current=current.next;
-		n.next=current.next;
-		current.next=n;
-		
-	
-	}
-	}
-	public void add(int element) {
-		Node n=new Node(element);
-		if (head==null)
-			head=n;
-		else {
-		Node current;
-		current = head;
-		while (current.next!=null) 
-			current=current.next;
-		current.next = n;
-		n.next = null;	
-	}
-	}
-	public int get(int index) {
-		Node current=head;
-		for (int i=0;i<index;i++) {
-			current=current.next;
-		}
-		return current.data;		
-	}
-	public void set(int index, int element) {
-		Node current=head; 
-		for (int i=0;i<index;i++) {
-			current=current.next;
-			
-		}
-		current.data=element;
-	}
-	public void clear() {
-		  // not sure!
-		head=null;
-	}
-	public boolean isEmpty() {
-		return (head==null);
-		
-			
-	}
-	public void remove(int index) {
-		Node current=head;
-		if (index==0) { head=head.next; return;}
-		if (index+1>size()) { System.out.println("Out Of Size");return; }
-		
-		for (int i=0;i<=index-2;i++)
-			current=current.next;
-		Node n=current.next;
-		current.next=n.next;
-		
-	}
-	public int size() {
-		Node current=head; int size=0;
-		while (current!=null) {
-			size++; current=current.next;}
-		return size;
-		
-			
-	}
-	
-	public sigleList sublist(int fromIndex, int toIndex) {
-		Node current=head;
-		for (int i=0;i<=fromIndex-1;i++)
-			current=current.next;
-		sigleList l2=new sigleList();
-		l2.head=current; 
-		for (int i=fromIndex;i<=toIndex-1;i++)
-			current=current.next;
-	current.next=null;
-		
-		
-		l2.print();
-		return l2;
-		
-	} 
-	public boolean contains(int o) {
-		Node current=head;
-		while (current!=null) {
-			if (current.data==o) return true;
-			current=current.next;
-		}
-		return false;
-		
-	}
-	public void print () {
-		Node current=head;
-		while (current!=null) {
-			System.out.println(current.data+",");
-			current=current.next;
-		}
-	}
-	
-	
-	
-
-
-
-}
-///////////////////////
-///////////////////////
-//////////////////////////
-public class doubleList implements ILinkedList {
-	Node head;
-    static class Node { 
-  
-        int data; 
-        Node next;
-        Node prev;
-  
-        // Constructor 
-        Node(int d) 
-        { 
-            data = d; 
-            next = null; 
-           
-        } 
-    }
-    public void add(int element) {
-    	Node n=new Node(element);
-		if (head==null)
-			head=n;
-		else {
-		Node current;
-		current = head;
-		while (current.next!=null) 
-			current=current.next;
-		current.next = n;
-		n.next = null;	
-		n.prev=current;
-	}
-    	
-    }
-    public void add(int index, int element){
-		Node n=new Node(element);
-		if (head==null)
-			head=n;
-		else {
-		
-		Node current=head;
-		for (int i=0 ; i<= index-2;i++)
-			current=current.next;
-		n.next=current.next;
-		n.prev=current;
-		current.next=n;
-		
-	
-	}
-	}
-    public int get(int index) {
-		Node current=head;
-		for (int i=0;i<index;i++) {
-			current=current.next;
-		}
-		return current.data;		
-	}
-    public void set(int index, int element) {
-		Node current=head; 
-		for (int i=0;i<index;i++) {
-			current=current.next;
-			
-		}
-		current.data=element;
-	}
-    public void clear() {
-		  // not sure!
-		head=null;
-	}
-    public boolean isEmpty() {
-		return (head==null);
-		
-			
-	}
-    public void remove(int index) {
-		Node current=head;
-		if (index==0) { head=head.next; return;}
-		if (index+1>size()) { System.out.println("Out Of Size");return; }
-		
-		for (int i=0;i<=index-2;i++)
-			current=current.next;
-		Node n=current.next;
-		current.next=n.next;
-		Node x=n.next;
-		x.prev=current;
-		
-	}
-    public int size() {
-		Node current=head; int size=0;
-		while (current!=null) {
-			size++; current=current.next;}
-		return size;
-		
-			
-	}
-    public doubleList sublist(int fromIndex, int toIndex) {
-		Node current=head;
-		for (int i=0;i<=fromIndex-1;i++)
-			current=current.next;
-		doubleList l2=new doubleList();
-		l2.head=current; 
-		for (int i=fromIndex;i<=toIndex-1;i++)
-			current=current.next;
-	current.next=null;
-		
-		
-		l2.print();
-		return l2;
-		
-	}
-    public boolean contains(int o) {
-		Node current=head;
-		while (current!=null) {
-			if (current.data==o) return true;
-			current=current.next;
-		}
-		return false;
-		
-	}
-    public void print () {
-		Node current=head;
-		while (current!=null) {
-			System.out.println(current.data+",");
-			current=current.next;
-		}
-	}
-    
-
-
-}
-
-/////////////////////////
-////////////////////
-
-
+import java.lang.Math;
 public class way {
 
 
@@ -335,13 +46,226 @@ public class way {
 			  
 			  
 		  }
-		  String print(char poly) {
-			  if (poly=='A') 
+		  ////////////
+		  void print(char poly) {
+			  LinkedPolynomial.Node current=null;
+			  RuntimeException es = new RuntimeException();
+			  if (poly=='A') { current=x.head; if (x.head==null ) throw es; }
+			  if (poly=='B') { current=y.head; if (y.head==null ) throw es; }
+			  if (poly=='C') { current=z.head; if (z.head==null ) throw es; }
+			  
+				  String s=new String();
+				  while (current.coef!=0) {
+						 if (current.coef!=1)  {
+						 String d=String.format(" %d%s%d", current.coef,"x^", current.exp);   s.concat(d);
+						 }
+						 else  {
+						 String d =String.format("%c^%d", 'x',current.exp);   s.concat(d);  }
+						 if (current.next.coef!=0)  {
+						 String z=new String("+"); s.concat(z); }
+						 
+						 current=current.next;
+						 }
+				  System.out.println(s); }
+				  /*
+				  while (current.coef!=0) {
+					 if (current.coef!=1)  System.out.printf(current.coef+"x^"+current.exp); 
+					// String d=String.format(" %d%s%d", current.coef,"x^", current.exp);   s.concat(d);
+					 else  System.out.printf("x^"+current.exp);
+					 //String d =String.format("%c^%d", 'x',current.exp);   s.concat(d); 
+					 if (current.next.coef!=0)  System.out.printf("+");
+					 //String z=new String("+"); s.concat(z);
+					 
+					 current=current.next;
+					 } */
+				 // System.out.println(s);	 
+		  
+		  /////////////////
+		  void clearPolynomial(char poly) {
+			  LinkedPolynomial.Node current=null;
+			  RuntimeException es = new RuntimeException();
+			  
+			  if (poly=='A') { current=x.head; if (x.head==null) throw es; }
+			  if (poly=='B') { current=y.head; if (y.head==null) throw es;  }
+			  if (poly=='C') { current=z.head;  if (z.head==null) throw es; }
+			  while(current.coef!=0) {
+				  current.coef=0; current.exp=0;
+				  current=current.next;	  
+			  }
+			  
+			  
+		  }
+		  float evaluatePolynomial(char poly, float value) {
+			  LinkedPolynomial.Node current=null;
+			  float sum=0; RuntimeException es = new RuntimeException();
+			  if (poly=='A') {  current=x.head; if (x.head==null) throw es; }
+			  if (poly=='B') {current =y.head; if (y.head==null) throw es; }
+			  if (poly=='C') { current=y.head; if (z.head==null) throw es; }
+				  
+				  while(current.coef!=0) {
+					  sum+=current.coef*Math.pow(value, current.exp);
+					  current=current.next;
+					  
+				  }			   
+			  System.out.println("sum=="+sum);
+			  return sum;
+		  }
+		  int[][] add(char poly1, char poly2){
+			  int[][]res=new int[100][2];
+			  LinkedPolynomial.Node current1=null;
+			  LinkedPolynomial.Node current2=null;
+			  int c,e; int aS=0; RuntimeException es = new RuntimeException();
+			  if (poly1=='A'&&poly2=='B') {current1=x.head; current2=y.head; if (x.head==null||y.head==null) throw es; }
+			  if (poly1=='A'&&poly2=='C') {current1=x.head; current2=z.head; if (x.head==null||z.head==null) throw es;  }
+			  if (poly1=='B'&&poly2=='A') {current1=y.head; current2=x.head; if (y.head==null||x.head==null) throw es; ;}
+			  if (poly1=='B'&&poly2=='C') {current1=y.head; current2=z.head; if (y.head==null||z.head==null) throw es; ;}
+			  if (poly1=='C'&&poly2=='A') {current1=z.head; current2=x.head; if (z.head==null||x.head==null) throw es; ;}
+			  if (poly1=='C'&&poly2=='B') {current1=z.head; current2=y.head; if (z.head==null||y.head==null) throw es; ;}
+				  
+				   
+			        while(current1.coef!=0&&current2.coef!=0)
+			        {
+			            if(current1.exp==current2.exp)
+			            {
+			                c=current1.coef+current2.coef;
+			                e=current1.exp;
+			                current1=current1.next;
+			                current2=current2.next;
+			            }
+			            else if(current1.exp>current2.exp)
+			            {
+			                c=current1.coef;
+			                e=current1.exp;
+			                current1=current1.next;
+			            }
+			            else
+			            {
+			                c=current2.coef;
+			                e=current2.exp;
+			                current2=current2.next;
+			            }
+			            res[aS][0]=c;    res[aS][1]=e; aS++;
+				  
+			  }
+			        if (current1.coef==0) {
+			        	while(current2.coef!=0) {
+			        		res[aS][0]=current2.coef;    res[aS][1]=current2.exp; aS++;
+			        		current2=current2.next;
+			        	}
+			        }
+			        if (current2.coef==0) {
+			        	while(current1.coef!=0) {
+			        		res[aS][0]=current1.coef;    res[aS][1]=current1.exp; aS++;
+			        		current1=current1.next;
+			        	}
+			        }
+			  return res;
+			  }
+		  int[][] subtract(char poly1, char poly2){
+			  int[][]res=new int[100][2];
+			  LinkedPolynomial.Node current1=null;
+			  LinkedPolynomial.Node current2=null;
+			  int c,e; int aS=0; RuntimeException es = new RuntimeException();
+			  if (poly1=='A'&&poly2=='B') {current1=x.head; current2=y.head; if (x.head==null||y.head==null) throw es; }
+			  if (poly1=='A'&&poly2=='C') {current1=x.head; current2=z.head; if (x.head==null||z.head==null) throw es;  }
+			  if (poly1=='B'&&poly2=='A') {current1=y.head; current2=x.head; if (y.head==null||x.head==null) throw es; ;}
+			  if (poly1=='B'&&poly2=='C') {current1=y.head; current2=z.head; if (y.head==null||z.head==null) throw es; ;}
+			  if (poly1=='C'&&poly2=='A') {current1=z.head; current2=x.head; if (z.head==null||x.head==null) throw es; ;}
+			  if (poly1=='C'&&poly2=='B') {current1=z.head; current2=y.head; if (z.head==null||y.head==null) throw es; ;}	   
+			        while(current1.coef!=0&&current2.coef!=0)
+			        {
+			            if(current1.exp==current2.exp)
+			            {
+			                c=current1.coef-current2.coef;
+			                e=current1.exp;
+			                current1=current1.next;
+			                current2=current2.next;
+			            }
+			            else if(current1.exp>current2.exp)
+			            {
+			                c=current1.coef;
+			                e=current1.exp;
+			                current1=current1.next;
+			            }
+			            else
+			            {
+			                c=current2.coef;
+			                e=current2.exp;
+			                current2=current2.next;
+			            }
+			            res[aS][0]=c;    res[aS][1]=e; aS++;
+				  
+			  }
+			        if (current1.coef==0) {
+			        	while(current2.coef!=0) {
+			        		res[aS][0]=current2.coef;    res[aS][1]=current2.exp; aS++;
+			        		current2=current2.next;
+			        	}
+			        }
+			        if (current2.coef==0) {
+			        	while(current1.coef!=0) {
+			        		res[aS][0]=current1.coef;    res[aS][1]=current1.exp; aS++;
+			        		current1=current1.next;
+			        	}
+			        }  
+			  return res;
+			  
+		  }
+		  int[][] multiply(char poly1, char poly2){
+			  LinkedPolynomial.Node current1=null;
+			  LinkedPolynomial.Node current2=null;
+			  int c,e; int aS=0; RuntimeException es = new RuntimeException();
+			  int[][]res =new int[1000][2] ; int reS=0;
+			  if (poly1=='A'&&poly2=='B') {current1=x.head; current2=y.head; if (x.head==null||y.head==null) throw es; }
+			  if (poly1=='A'&&poly2=='C') {current1=x.head; current2=z.head; if (x.head==null||z.head==null) throw es;  }
+			  if (poly1=='B'&&poly2=='A') {current1=y.head; current2=x.head; if (y.head==null||x.head==null) throw es; ;}
+			  if (poly1=='B'&&poly2=='C') {current1=y.head; current2=z.head; if (y.head==null||z.head==null) throw es; ;}
+			  if (poly1=='C'&&poly2=='A') {current1=z.head; current2=x.head; if (z.head==null||x.head==null) throw es; ;}
+			  if (poly1=='C'&&poly2=='B') {current1=z.head; current2=y.head; if (z.head==null||y.head==null) throw es; ;}
+			  while (current1.coef != 0) {  
+			        while (current2.coef != 0) {        
+			            c = current1.coef * current2.coef;  
+			            e = current1.exp + current2.exp;  
+			            res[reS][0]=c; res[reS][1]=e; reS++; 
+			            current2 = current2.next;  
+			        } 
+			        if (poly2=='A')  current2=x.head;  
+					if (poly2=='B')  current2=y.head;   
+					if (poly2=='C')  current2=z.head; 
+			        current1 = current1.next;  
+			    }
+			  for (int i=0;i<1000;i++) {
+				 for (int j=i+1;j<1000;j++) {
+					 //if (res[i][0]==0&&res[i][1]==0) break;
+					 if (res[i][1]==res[j][1]) {
+						 res[i][0]+=res[j][0];
+						 res[j][0]=0; res[j][1]=0;
+						 
+					 }
+					 
+				 }
+				  
+			  }  int ss=0;
+			  for (int i=0;i<1000;i++) {
+				  if (res[i][0]!=0) ss++;
+				  
+			  }
+			  int[][] fin=new int[ss][2]; int j=0;
+			  for (int i=0;i<1000;i++) {
+				  if (res[i][0]!=0) {
+					  fin[j][0]=res[i][0]; fin[j][1]=res[i][1]; j++; }
+			  }
+			  for (int i=0;i<1000;i++) {
+				  if (res[i][0]!=0) ss++;
+				  
+			  }
+				  
+				  
+			  return fin;
+			  
+			  
 		  }
 		  
-
-	
-
 }
-
+	
 
